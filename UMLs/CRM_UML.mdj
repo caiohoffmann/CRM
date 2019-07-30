@@ -7011,7 +7011,7 @@
 													"top": 45,
 													"width": 105.138671875,
 													"height": 13,
-													"text": "«ServiceClass»"
+													"text": "«Service»"
 												},
 												{
 													"_type": "LabelView",
@@ -8357,7 +8357,7 @@
 								"$ref": "AAAAAAFsMNtYUwOT0ek="
 							},
 							"name": "TicketBusiness",
-							"stereotype": "ServiceClass",
+							"stereotype": "Service",
 							"represent": {
 								"$ref": "AAAAAAFsMN3AVQQhA6A="
 							},
@@ -8823,7 +8823,7 @@
 													"top": 45,
 													"width": 105.138671875,
 													"height": 13,
-													"text": "«ServiceClass»"
+													"text": "«Service»"
 												},
 												{
 													"_type": "LabelView",
@@ -11067,7 +11067,7 @@
 								"$ref": "AAAAAAFsRNiBfhqV8Rc="
 							},
 							"name": "TicketBusiness",
-							"stereotype": "ServiceClass",
+							"stereotype": "Service",
 							"represent": {
 								"$ref": "AAAAAAFsRN67hhsb2cE="
 							},
