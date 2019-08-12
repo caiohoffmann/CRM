@@ -1,6 +1,9 @@
 \\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\bin\Debug\netstandard2.0\CRM.Entities.deps.json
 \\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\bin\Debug\netstandard2.0\CRM.Entities.dll
-\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\obj\Debug\netstandard2.0\CRM.Entities.csprojAssemblyReference.cache
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\bin\Debug\netstandard2.0\CRM.Entities.pdb
 \\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\obj\Debug\netstandard2.0\CRM.Entities.csproj.CoreCompileInputs.cache
 \\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\obj\Debug\netstandard2.0\CRM.Entities.AssemblyInfoInputs.cache
 \\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\obj\Debug\netstandard2.0\CRM.Entities.AssemblyInfo.cs
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\obj\Debug\netstandard2.0\CRM.Entities.dll
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\obj\Debug\netstandard2.0\CRM.Entities.pdb
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Entities\obj\Debug\netstandard2.0\CRM.Entities.csprojAssemblyReference.cache

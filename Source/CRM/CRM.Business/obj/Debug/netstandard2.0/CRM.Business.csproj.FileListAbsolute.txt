@@ -1,0 +1,14 @@
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\bin\Debug\netstandard2.0\CRM.Business.deps.json
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\bin\Debug\netstandard2.0\CRM.Business.dll
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\bin\Debug\netstandard2.0\CRM.Business.pdb
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\bin\Debug\netstandard2.0\CRM.Entities.dll
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\bin\Debug\netstandard2.0\CRM.Repository.dll
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\bin\Debug\netstandard2.0\CRM.Repository.pdb
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\bin\Debug\netstandard2.0\CRM.Entities.pdb
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\obj\Debug\netstandard2.0\CRM.Business.csprojAssemblyReference.cache
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\obj\Debug\netstandard2.0\CRM.Business.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\obj\Debug\netstandard2.0\CRM.Business.AssemblyInfoInputs.cache
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\obj\Debug\netstandard2.0\CRM.Business.AssemblyInfo.cs
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\obj\Debug\netstandard2.0\CRM.Business.csproj.CopyComplete
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\obj\Debug\netstandard2.0\CRM.Business.dll
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Business\obj\Debug\netstandard2.0\CRM.Business.pdb

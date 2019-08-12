@@ -7,6 +7,10 @@ namespace CRM.Entities
 {
     public class CRMContext : DbContext
     {
+       public CRMContext(DbContextOptions<CRMContext> dbContextOptions) : base(dbContextOptions)
+        {
+
+        }
         public DbSet<Store> Stores { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Country> Countries { get; set; }

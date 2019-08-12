@@ -1,0 +1,12 @@
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\bin\Debug\netstandard2.0\CRM.Repository.deps.json
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\bin\Debug\netstandard2.0\CRM.Repository.dll
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\bin\Debug\netstandard2.0\CRM.Repository.pdb
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\bin\Debug\netstandard2.0\CRM.Entities.dll
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\bin\Debug\netstandard2.0\CRM.Entities.pdb
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\obj\Debug\netstandard2.0\CRM.Repository.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\obj\Debug\netstandard2.0\CRM.Repository.AssemblyInfoInputs.cache
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\obj\Debug\netstandard2.0\CRM.Repository.AssemblyInfo.cs
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\obj\Debug\netstandard2.0\CRM.Repository.csproj.CopyComplete
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\obj\Debug\netstandard2.0\CRM.Repository.dll
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\obj\Debug\netstandard2.0\CRM.Repository.pdb
+\\Mac\Home\Desktop\Software Engineer\CRM\Source\CRM\CRM.Repository\obj\Debug\netstandard2.0\CRM.Repository.csprojAssemblyReference.cache
