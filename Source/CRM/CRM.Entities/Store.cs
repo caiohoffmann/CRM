@@ -12,10 +12,13 @@ namespace CRM.Entities
         public int idStore { get; set; }
         [Required]
         [MaxLength(100)]
+        [Display(Name = "Name")]
         public string nmStore { get; set; }
         [Required]
+        [Display(Name = "Country")]
         public int idCountry { get; set; }       
         [Required]
+        [Display(Name = "Address")]
         public int idAddress { get; set; }
         public virtual ICollection<Staff> Staffs { get; set; }
         [ForeignKey("idAddress")]

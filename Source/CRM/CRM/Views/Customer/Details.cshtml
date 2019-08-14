@@ -3,12 +3,14 @@
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Master.cshtml";
+    CRM.Entities.Ticket ticket = new Entities.Ticket();
 }
 
 <h2>Details</h2>
 
 <div>
     <h4>Customer</h4>
+    <a asp-action="Create" asp-controller="Ticket" asp-route-id="@Model.idCustomer">Create New Ticket</a>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -41,8 +43,65 @@
         <dd>
             @Html.DisplayFor(model => model.Address.nuAddress)
         </dd>
+        <partial name="/Views/Address/Details.cshtml" for="Address" />
     </dl>
 </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => ticket.deTicket)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => ticket.dtOpening)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => ticket.dtClosing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => ticket.dtDue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => ticket.staffAssignedTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => ticket.ticketStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.tickets)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.deTicket)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dtOpening)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dtClosing)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dtDue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.staffAssignedTo.adEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ticketStatus.deTicketStatus)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.idTicket">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.idTicket">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.idTicket">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.idCustomer">Edit</a> |
     <a asp-action="Index">Back to List</a>

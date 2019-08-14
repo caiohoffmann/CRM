@@ -10,6 +10,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
@@ -17,11 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\plugins\jqvmap\js\maps\" />
-    <Folder Include="wwwroot\plugins\summernote\css\" />
+    <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CRM.Business\CRM.Business.csproj" />
     <ProjectReference Include="..\CRM.Entities\CRM.Entities.csproj" />
   </ItemGroup>
 

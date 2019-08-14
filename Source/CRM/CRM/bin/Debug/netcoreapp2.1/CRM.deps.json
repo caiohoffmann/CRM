@@ -24,8 +24,12 @@
     ".NETCoreApp,Version=v2.1": {
       "CRM/1.0.0": {
         "dependencies": {
+          "CRM.Business": "1.0.0",
           "CRM.Entities": "1.0.0",
           "Microsoft.AspNetCore.App": "2.1.1",
+          "Microsoft.AspNetCore.Authentication": "2.1.1",
+          "Microsoft.AspNetCore.Identity": "2.1.1",
+          "Microsoft.AspNetCore.Identity.UI": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.EntityFrameworkCore": "2.1.1",
           "Microsoft.NETCore.App": "2.1.0",
@@ -573,9 +577,22 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
+      "CRM.Business/1.0.0": {
+        "dependencies": {
+          "CRM.Repository": "1.0.0",
+          "CRM.Util": "1.0.0"
+        },
+        "runtime": {
+          "CRM.Business.dll": {}
+        },
+        "compile": {
+          "CRM.Business.dll": {}
+        }
+      },
       "CRM.Entities/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "2.1.1",
+          "Microsoft.Extensions.Identity.Stores": "2.1.1",
           "Pomelo.EntityFrameworkCore.MySql": "2.1.1",
           "System.Data.Common": "4.3.0"
         },
@@ -584,6 +601,28 @@
         },
         "compile": {
           "CRM.Entities.dll": {}
+        }
+      },
+      "CRM.Repository/1.0.0": {
+        "dependencies": {
+          "CRM.Entities": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "2.1.1",
+          "Microsoft.Extensions.Identity.Stores": "2.1.1",
+          "System.Linq.Expressions": "4.3.0"
+        },
+        "runtime": {
+          "CRM.Repository.dll": {}
+        },
+        "compile": {
+          "CRM.Repository.dll": {}
+        }
+      },
+      "CRM.Util/1.0.0": {
+        "runtime": {
+          "CRM.Util.dll": {}
+        },
+        "compile": {
+          "CRM.Util.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3744,7 +3783,22 @@
       "path": "system.linq.parallel/4.3.0",
       "hashPath": "system.linq.parallel.4.3.0.nupkg.sha512"
     },
+    "CRM.Business/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "CRM.Entities/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CRM.Repository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CRM.Util/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

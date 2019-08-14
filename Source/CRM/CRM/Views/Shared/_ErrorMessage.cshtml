@@ -1,0 +1,16 @@
+﻿@{
+    string error = string.Empty;
+    if (ViewData != null)
+    {
+        if (ViewData["error"] != null)
+        {
+
+            error = ((CRM.Helper.Error)ViewData["error"]).description;
+        }
+    }
+
+}
+@if (error != string.Empty)
+{
+    <script>alert('@error');</script>
+}

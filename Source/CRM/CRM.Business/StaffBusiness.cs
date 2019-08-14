@@ -2,29 +2,72 @@
 using CRM.Repository;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CRM.Business
 {
     public interface IStaffBusiness
     {
-        IList<Staff> getStaffsByName(string name);
-        Staff getStaffById(int id);
-
+        Task<IList<Staff>> getStaffsByName(string name);
+        Task<Staff> getStaffById(int id);
+        Task<IList<Staff>> getAllStaff();
+        Task saveStaff(Staff staff);
+        Task updateStaff(Staff staff);
+        Task DeleteByStaff(Staff staff);
+        Task<bool> StaffExists(int id);
+        Task<Staff> getStaffByUser(string id);
     }
-   
+
     public class StaffBusiness : IStaffBusiness
     {
-        private StaffRepository staffRepository;
+        private IRepository<Staff> staffRepository;
 
-        public IList<Staff> getStaffsByName(string name)
+        public StaffBusiness()
+        {
+            this.staffRepository = new StaffRepository();
+        }
+
+        public Task<IList<Staff>> getStaffsByName(string name)
         {
             return staffRepository.GetList(s => s.nameStaff.Contains(name));
         }
 
-        public Staff getStaffById(int id)
+        public Task<Staff> getStaffById(int id)
         {
             return staffRepository.Get(s => s.idStaff == id);
         }
 
+        public Task<IList<Staff>> getAllStaff()
+        {
+            return staffRepository.GetList(s => true);
+        }
+
+        public async Task saveStaff(Staff staff)
+        {
+            staff.dtRegistration = DateTime.Now;
+            await staffRepository.Save(staff);
+        }
+
+        public async Task updateStaff(Staff staff)
+        {
+            await staffRepository.Update(staff);
+        }
+
+
+        public async Task DeleteByStaff(Staff staff)
+        {
+            await staffRepository.Delete(staff);
+        }
+
+        public async Task<bool> StaffExists(int id)
+        {
+            Staff staffExists = await staffRepository.Get(s => s.idStaff == id);
+            return staffExists != null || staffExists.idStaff > 0;
+        }
+
+        public async Task<Staff> getStaffByUser(string id)
+        {
+            return await staffRepository.Get(s => s.idUser == id);
+        }
     }
 }

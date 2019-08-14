@@ -14,9 +14,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.idStaff)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.nameStaff)
             </th>
             <th>
@@ -32,13 +29,13 @@
                 @Html.DisplayNameFor(model => model.dtRegistration)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.idStore)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.idAddress)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.isAdmin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
             </th>
             <th></th>
         </tr>
@@ -46,9 +43,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.idStaff)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.nameStaff)
             </td>
@@ -65,18 +59,18 @@
                 @Html.DisplayFor(modelItem => item.dtRegistration)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.idStore)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.idAddress)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.isAdmin)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.Address.nuAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.nmStore)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.idStaff">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.idStaff">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.idStaff">Delete</a>
             </td>
         </tr>
 }

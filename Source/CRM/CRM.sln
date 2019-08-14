@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM", "CRM\CRM.csproj", "{5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Entities", "CRM.Entities\CRM.Entities.csproj", "{2182AB68-4CDD-42A4-A695-D928D6C953ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Repository", "CRM.Repository\CRM.Repository.csproj", "{651FD912-DE1B-411D-901B-5C9F5800910B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Repository", "CRM.Repository\CRM.Repository.csproj", "{651FD912-DE1B-411D-901B-5C9F5800910B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Business", "CRM.Business\CRM.Business.csproj", "{508DCB96-60EB-4A36-A53C-BAADFE929021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRM.Business", "CRM.Business\CRM.Business.csproj", "{508DCB96-60EB-4A36-A53C-BAADFE929021}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRM.Util", "CRM.Util\CRM.Util.csproj", "{B4ED821A-E3F0-4F32-A82E-5E29E937F639}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{508DCB96-60EB-4A36-A53C-BAADFE929021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508DCB96-60EB-4A36-A53C-BAADFE929021}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508DCB96-60EB-4A36-A53C-BAADFE929021}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4ED821A-E3F0-4F32-A82E-5E29E937F639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4ED821A-E3F0-4F32-A82E-5E29E937F639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4ED821A-E3F0-4F32-A82E-5E29E937F639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4ED821A-E3F0-4F32-A82E-5E29E937F639}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

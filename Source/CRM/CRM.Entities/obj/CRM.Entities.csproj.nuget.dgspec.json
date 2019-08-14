@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj": {}
+    "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj": {}
   },
   "projects": {
-    "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj": {
+    "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj",
+        "projectUniqueName": "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj",
         "projectName": "CRM.Entities",
-        "projectPath": "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj",
+        "projectPath": "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj",
         "packagesPath": "C:\\Users\\ishiva\\.nuget\\packages\\",
-        "outputPath": "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM.Entities\\obj\\",
+        "outputPath": "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -42,6 +42,10 @@
         "netstandard2.0": {
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
               "version": "[2.1.1, )"
             },

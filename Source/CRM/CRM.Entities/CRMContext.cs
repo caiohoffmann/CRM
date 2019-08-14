@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CRM.Entities
 {
-    public class CRMContext : DbContext
+    public class CRMContext : IdentityDbContext
     {
        public CRMContext(DbContextOptions<CRMContext> dbContextOptions) : base(dbContextOptions)
         {
@@ -22,8 +23,10 @@ namespace CRM.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<Staff>().HasIndex(k => k.adEmail).IsUnique(); // Condition : one unique email adderss
-            modelBuilder.Entity<Customer>().HasIndex(k => k.adEmail).IsUnique(); 
+            modelBuilder.Entity<Customer>().HasIndex(k => k.adEmail).IsUnique();
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

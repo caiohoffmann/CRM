@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CRM.Entities.Ticket>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.deTicket)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dtOpening)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dtClosing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dtDue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.staffAssignedTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ticketStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.deTicket)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dtOpening)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dtClosing)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dtDue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.staffAssignedTo.adEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ticketStatus.deTicketStatus)
+            </td>
+            <td>
+                @if (item.idTicketStatus == (int)CRM.Util.Enum.TicketStatusEnum.OPEN)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.idTicket">Edit</a> 
+}
+
+                <a asp-action="Details" asp-route-id="@item.idTicket">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.idTicket">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

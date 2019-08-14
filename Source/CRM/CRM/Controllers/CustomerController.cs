@@ -6,23 +6,42 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CRM.Entities;
+using Microsoft.AspNetCore.Authorization;
+using CRM.Business;
+using CRM.Helper;
+using CRM.Models;
 
 namespace CRM.Controllers
 {
+    [Authorize]
     public class CustomerController : Controller
     {
         private readonly CRMContext _context;
+        private readonly ICustomerBusiness customerBusiness;
+        private readonly IAddressBusiness addressBusiness;
 
-        public CustomerController(CRMContext context)
+        public CustomerController(CRMContext context, ICustomerBusiness customerBusiness, IAddressBusiness addressBusiness)
         {
+            this.customerBusiness = customerBusiness;
+            this.addressBusiness = addressBusiness;
             _context = context;
         }
 
         // GET: Customer
         public async Task<IActionResult> Index()
         {
-            var cRMContext = _context.Customers.Include(c => c.Address);
-            return View(await cRMContext.ToListAsync());
+            var customers = await customerBusiness.getAllCustomer();
+            return View(customers);
+        }
+
+        public async Task<IActionResult> Search(string queryString)
+        {
+            IList<Customer> customers = new List<Customer>();
+            if (queryString == null)
+                customers = await customerBusiness.getAllCustomer();
+            else
+                customers = await customerBusiness.filterCustomer(queryString);
+            return View(customers);
         }
 
         // GET: Customer/Details/5
@@ -33,9 +52,7 @@ namespace CRM.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .Include(c => c.Address)
-                .FirstOrDefaultAsync(m => m.idCustomer == id);
+            var customer = await customerBusiness.getCustomerById(id.Value);
             if (customer == null)
             {
                 return NotFound();
@@ -45,9 +62,9 @@ namespace CRM.Controllers
         }
 
         // GET: Customer/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["idAddress"] = new SelectList(_context.Addresses, "idAddress", "nuAddress");
+            ViewData["idAddress"] = SelectListHelper.SelectListAddresses(await addressBusiness.GetAddresses());
             return View();
         }
 
@@ -60,11 +77,10 @@ namespace CRM.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                await customerBusiness.saveCustomer(customer);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["idAddress"] = new SelectList(_context.Addresses, "idAddress", "nuAddress", customer.idAddress);
+            ViewData["idAddress"] = SelectListHelper.SelectListAddresses(await addressBusiness.GetAddresses());
             return View(customer);
         }
 
@@ -75,13 +91,12 @@ namespace CRM.Controllers
             {
                 return NotFound();
             }
-
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await customerBusiness.getCustomerById(id.Value);
             if (customer == null)
             {
                 return NotFound();
             }
-            ViewData["idAddress"] = new SelectList(_context.Addresses, "idAddress", "nuAddress", customer.idAddress);
+            ViewData["idAddress"] = SelectListHelper.SelectListAddresses(await addressBusiness.GetAddresses());
             return View(customer);
         }
 
@@ -101,12 +116,11 @@ namespace CRM.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
+                    await customerBusiness.updateCustomer(customer);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.idCustomer))
+                    if (!await CustomerExists(customer.idCustomer))
                     {
                         return NotFound();
                     }
@@ -117,21 +131,18 @@ namespace CRM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["idAddress"] = new SelectList(_context.Addresses, "idAddress", "nuAddress", customer.idAddress);
+            ViewData["idAddress"] = SelectListHelper.SelectListAddresses(await addressBusiness.GetAddresses());
             return View(customer);
         }
 
-        // GET: Customer/Delete/5
+        // GET: Customer/Delete/5S
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var customer = await _context.Customers
-                .Include(c => c.Address)
-                .FirstOrDefaultAsync(m => m.idCustomer == id);
+            var customer = await customerBusiness.getCustomerById(id.Value);
             if (customer == null)
             {
                 return NotFound();
@@ -145,15 +156,14 @@ namespace CRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
+            var customer = await customerBusiness.getCustomerById(id);
+            await customerBusiness.DeleteByCustomer(customer);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private async Task<bool> CustomerExists(int id)
         {
-            return _context.Customers.Any(e => e.idCustomer == id);
+            return await customerBusiness.CustomerExists(id);
         }
     }
 }

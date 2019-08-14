@@ -4673,11 +4673,26 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "CRM.Business/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "CRM.Repository": "1.0.0",
+          "CRM.Util": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CRM.Business.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CRM.Business.dll": {}
+        }
+      },
       "CRM.Entities/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "2.1.1",
+          "Microsoft.Extensions.Identity.Stores": "2.1.1",
           "Pomelo.EntityFrameworkCore.MySql": "2.1.1",
           "System.Data.Common": "4.3.0"
         },
@@ -4686,6 +4701,32 @@
         },
         "runtime": {
           "bin/placeholder/CRM.Entities.dll": {}
+        }
+      },
+      "CRM.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "CRM.Entities": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "2.1.1",
+          "Microsoft.Extensions.Identity.Stores": "2.1.1",
+          "System.Linq.Expressions": "4.3.0"
+        },
+        "compile": {
+          "bin/placeholder/CRM.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CRM.Repository.dll": {}
+        }
+      },
+      "CRM.Util/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/CRM.Util.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CRM.Util.dll": {}
         }
       }
     }
@@ -12693,16 +12734,35 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
+    "CRM.Business/1.0.0": {
+      "type": "project",
+      "path": "../CRM.Business/CRM.Business.csproj",
+      "msbuildProject": "../CRM.Business/CRM.Business.csproj"
+    },
     "CRM.Entities/1.0.0": {
       "type": "project",
       "path": "../CRM.Entities/CRM.Entities.csproj",
       "msbuildProject": "../CRM.Entities/CRM.Entities.csproj"
+    },
+    "CRM.Repository/1.0.0": {
+      "type": "project",
+      "path": "../CRM.Repository/CRM.Repository.csproj",
+      "msbuildProject": "../CRM.Repository/CRM.Repository.csproj"
+    },
+    "CRM.Util/1.0.0": {
+      "type": "project",
+      "path": "../CRM.Util/CRM.Util.csproj",
+      "msbuildProject": "../CRM.Util/CRM.Util.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "CRM.Business >= 1.0.0",
       "CRM.Entities >= 1.0.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
+      "Microsoft.AspNetCore.Authentication >= 2.1.1",
+      "Microsoft.AspNetCore.Identity >= 2.1.1",
+      "Microsoft.AspNetCore.Identity.UI >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.EntityFrameworkCore >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
@@ -12717,11 +12777,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM\\CRM.csproj",
+      "projectUniqueName": "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM\\CRM.csproj",
       "projectName": "CRM",
-      "projectPath": "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM\\CRM.csproj",
+      "projectPath": "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM\\CRM.csproj",
       "packagesPath": "C:\\Users\\ishiva\\.nuget\\packages\\",
-      "outputPath": "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM\\obj\\",
+      "outputPath": "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12740,8 +12800,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj": {
-              "projectPath": "\\\\Mac\\Home\\Desktop\\Software Engineer\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj"
+            "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Business\\CRM.Business.csproj": {
+              "projectPath": "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Business\\CRM.Business.csproj"
+            },
+            "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj": {
+              "projectPath": "C:\\Users\\ishiva\\Desktop\\CRM\\Source\\CRM\\CRM.Entities\\CRM.Entities.csproj"
             }
           }
         }
@@ -12760,6 +12823,18 @@
             "target": "Package",
             "version": "[2.1.1, )",
             "autoReferenced": true
+          },
+          "Microsoft.AspNetCore.Authentication": {
+            "target": "Package",
+            "version": "[2.1.1, )"
+          },
+          "Microsoft.AspNetCore.Identity": {
+            "target": "Package",
+            "version": "[2.1.1, )"
+          },
+          "Microsoft.AspNetCore.Identity.UI": {
+            "target": "Package",
+            "version": "[2.1.1, )"
           },
           "Microsoft.AspNetCore.Razor.Design": {
             "suppressParent": "All",

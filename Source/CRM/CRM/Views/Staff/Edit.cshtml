@@ -13,11 +13,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="idStaff" class="control-label"></label>
-                <input asp-for="idStaff" class="form-control" />
-                <span asp-validation-for="idStaff" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="idStaff" />
             <div class="form-group">
                 <label asp-for="nameStaff" class="control-label"></label>
                 <input asp-for="nameStaff" class="form-control" />
@@ -39,11 +35,6 @@
                 <span asp-validation-for="adEmailPersonal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="dtRegistration" class="control-label"></label>
-                <input asp-for="dtRegistration" class="form-control" />
-                <span asp-validation-for="dtRegistration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <div class="checkbox">
                     <label>
                         <input asp-for="isAdmin" /> @Html.DisplayNameFor(model => model.isAdmin)
@@ -52,14 +43,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="idStore" class="control-label"></label>
-                <input asp-for="idStore" class="form-control" />
+                <select asp-for="idStore" class="form-control" asp-items="ViewBag.idStore"></select>
                 <span asp-validation-for="idStore" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="idAddress" class="control-label"></label>
-                <input asp-for="idAddress" class="form-control" />
-                <span asp-validation-for="idAddress" class="text-danger"></span>
-            </div>
+            <partial name="/Views/Address/Edit.cshtml" for="Address" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

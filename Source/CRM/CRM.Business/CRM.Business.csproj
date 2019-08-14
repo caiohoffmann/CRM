@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CRM.Repository\CRM.Repository.csproj" />
+    <ProjectReference Include="..\CRM.Util\CRM.Util.csproj" />
   </ItemGroup>
 
 </Project>
