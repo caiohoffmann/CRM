@@ -26,6 +26,7 @@ namespace CRM.Entities
             
             modelBuilder.Entity<Staff>().HasIndex(k => k.adEmail).IsUnique(); // Condition : one unique email adderss
             modelBuilder.Entity<Customer>().HasIndex(k => k.adEmail).IsUnique();
+            modelBuilder.Entity<Customer>().HasIndex(k => k.nuCustomer).IsUnique();
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -14,7 +14,7 @@ namespace CRM.Entities.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("CRM.Entities.Address", b =>
@@ -93,6 +93,9 @@ namespace CRM.Entities.Migrations
                         .IsUnique();
 
                     b.HasIndex("idAddress");
+
+                    b.HasIndex("nuCustomer")
+                        .IsUnique();
 
                     b.ToTable("Customers");
                 });
@@ -195,7 +198,7 @@ namespace CRM.Entities.Migrations
                     b.Property<int>("idTicketHistory")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("dtAssigned");
+                    b.Property<DateTime>("dtChanged");
 
                     b.Property<int?>("idStaffAssigned");
 
@@ -442,7 +445,7 @@ namespace CRM.Entities.Migrations
             modelBuilder.Entity("CRM.Entities.Ticket", b =>
                 {
                     b.HasOne("CRM.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("tickets")
                         .HasForeignKey("idCustomer")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -468,7 +471,7 @@ namespace CRM.Entities.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CRM.Entities.Ticket", "Ticket")
-                        .WithMany()
+                        .WithMany("TicketHistory")
                         .HasForeignKey("idTicket")
                         .OnDelete(DeleteBehavior.Cascade);
 

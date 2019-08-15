@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CRM.Repository
 {
-    public class CustomerRepository : IRepository<Customer>
+    public class CustomerRepository : RepositoryBase, IRepository<Customer>
     {
         private CRMContext _context;
         public async Task Delete(Customer t)
@@ -26,7 +26,12 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.Customers.Include(includeProperties).FirstOrDefaultAsync(predicate);
+                {
+                    var custs = _context.Customers.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        custs = custs.Include(inc);
+                    return await custs.FirstOrDefaultAsync(predicate);
+                }
                 else
                     return await _context.Customers.Include(s => s.Address).FirstOrDefaultAsync(predicate);
             }
@@ -37,7 +42,13 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.Customers.Include(includeProperties).Where(predicate).ToListAsync();
+                {
+                    var custs = _context.Customers.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        custs = custs.Include(inc);
+                    return await custs.Where(predicate).ToListAsync();
+                }
+                
                 else
                     return await _context.Customers.Include(s => s.Address).Where(predicate).ToListAsync();
             }
@@ -57,8 +68,7 @@ namespace CRM.Repository
         {
             using (_context = CRMContextFactory.getContext())
             {
-                var Customers = await _context.Customers.FirstOrDefaultAsync(Customer => Customer.idCustomer == t.idCustomer);
-                Customers = t;
+                var Customers = _context.Customers.Update(t);
                 await _context.SaveChangesAsync();
                 return t;
             }

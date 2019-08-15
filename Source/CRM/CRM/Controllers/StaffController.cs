@@ -10,10 +10,11 @@ using CRM.Business;
 using CRM.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using CRM.Util;
 
 namespace CRM.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class StaffController : Controller
     {
         private readonly CRMContext _context;
@@ -21,13 +22,15 @@ namespace CRM.Controllers
         private readonly IAddressBusiness addressBusiness;
         private readonly IStoreBusiness storeBusiness;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ICountryBusiness countryBusiness;
 
-        public StaffController(CRMContext context, IStaffBusiness staffBusiness, IAddressBusiness addressBusiness, IStoreBusiness storeBusiness, UserManager<IdentityUser> userManager)
+        public StaffController(CRMContext context, IStaffBusiness staffBusiness, IAddressBusiness addressBusiness, IStoreBusiness storeBusiness, UserManager<IdentityUser> userManager, ICountryBusiness countryBusiness)
         {
             this.staffBusiness = staffBusiness;
             this.addressBusiness = addressBusiness;
             this.storeBusiness = storeBusiness;
             this._userManager = userManager;
+            this.countryBusiness = countryBusiness;
             _context = context;
         }
 
@@ -67,13 +70,14 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idStaff,nameStaff,nuPhone,adEmail,adEmailPersonal,dtRegistration,isAdmin,idStore,idAddress,password")] Staff staff)
+        public async Task<IActionResult> Create( Staff staff)
         {
 
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = staff.adEmail, Email = staff.adEmail };
                 var result = await _userManager.CreateAsync(user, staff.password);
+                
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
@@ -84,6 +88,8 @@ namespace CRM.Controllers
                     }
                 }
                 user = await _userManager.FindByNameAsync(staff.adEmail);
+                
+                await _userManager.AddToRoleAsync(user, staff.isAdmin ? "Admin" : "Employee" );
                 staff.idUser = user.Id;
                 await staffBusiness.saveStaff(staff);
                 return RedirectToAction(nameof(Index));
@@ -96,8 +102,10 @@ namespace CRM.Controllers
         {
             IList<Address> addresses = await addressBusiness.GetAddresses();
             IList<Store> stores = await storeBusiness.getAllStores();
+            IList<Country> countries = await countryBusiness.GetCountries();
             ViewData["idAddress"] = SelectListHelper.SelectListAddresses(addresses);
             ViewData["idStore"] = SelectListHelper.SelectListStores(stores);
+            ViewData["idCountry"] = SelectListHelper.SelectListCountries(countries);
         }
 
         // GET: Staff/Edit/5
@@ -122,7 +130,7 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idStaff,nameStaff,nuPhone,adEmail,adEmailPersonal,dtRegistration,isAdmin,idStore,idAddress")] Staff staff)
+        public async Task<IActionResult> Edit(int id, Staff staff)
         {
             if (id != staff.idStaff)
             {
@@ -134,6 +142,18 @@ namespace CRM.Controllers
                 try
                 {
                     await staffBusiness.updateStaff(staff);
+                    var user = await _userManager.FindByNameAsync(staff.adEmail);
+                    if (staff.isAdmin)
+                    {
+
+                        if(!await _userManager.IsInRoleAsync(user,"Admin"))
+                            await _userManager.AddToRoleAsync(user,"Admin");
+                    }
+                    else
+                    {
+                        if (await _userManager.IsInRoleAsync(user, "Admin"))
+                            await _userManager.RemoveFromRoleAsync(user, "Admin");
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

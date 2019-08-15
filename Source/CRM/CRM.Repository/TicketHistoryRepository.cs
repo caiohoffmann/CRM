@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CRM.Repository
 {
-    public class TicketHistoryRepository : IRepository<TicketHistory>
+    public class TicketHistoryRepository : RepositoryBase ,IRepository<TicketHistory>
     {
         private CRMContext _context;
         public async Task Delete(TicketHistory t)
@@ -26,7 +26,12 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.TicketHistories.Include(includeProperties).FirstOrDefaultAsync(predicate);
+                {
+                    var histories = _context.TicketHistories.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        histories = histories.Include(inc);
+                    return await histories.FirstOrDefaultAsync(predicate);
+                }
                 else
                     return await _context.TicketHistories.FirstOrDefaultAsync(predicate);
             }
@@ -37,7 +42,13 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.TicketHistories.Include(includeProperties).Where(predicate).ToListAsync();
+                {
+                    var histories = _context.TicketHistories.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        histories = histories.Include(inc);
+                    return await histories.Where(predicate).ToListAsync();
+                }
+                
                 else
                     return await _context.TicketHistories.Where(predicate).ToListAsync();
             }
@@ -57,8 +68,7 @@ namespace CRM.Repository
         {
             using (_context = CRMContextFactory.getContext())
             {
-                var TicketHistoryes = await _context.TicketHistories.FirstOrDefaultAsync(TicketHistory => TicketHistory.idTicketHistory == t.idTicketHistory);
-                TicketHistoryes = t;
+                var TicketHistoryes = _context.TicketHistories.Update(t);
                 await _context.SaveChangesAsync();
                 return t;
             }

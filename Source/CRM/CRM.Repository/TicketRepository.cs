@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CRM.Repository
 {
-    public class TicketRepository : IRepository<Ticket>
+    public class TicketRepository : RepositoryBase, IRepository<Ticket>
     {
         private CRMContext _context;
         public async Task Delete(Ticket t)
@@ -26,7 +26,13 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.Tickets.Include(includeProperties).FirstOrDefaultAsync(predicate);
+                {
+                    var tickets = _context.Tickets.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        tickets = tickets.Include(inc);
+                    return await tickets.FirstOrDefaultAsync(predicate);
+                }
+                
                 else
                     return await _context.Tickets.FirstOrDefaultAsync(predicate);
             }
@@ -37,7 +43,12 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.Tickets.Include(includeProperties).Where(predicate).ToListAsync();
+                {
+                    var tickets = _context.Tickets.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        tickets = tickets.Include(inc);
+                    return await tickets.Where(predicate).ToListAsync();
+                }
                 else
                     return await _context.Tickets.Where(predicate).ToListAsync();
             }
@@ -52,10 +63,7 @@ namespace CRM.Repository
                 history.idStaffAssigned = t.idStaffAssignedTo;
                 history.idTicket = t.idTicket;
                 history.idTicketStatus = t.idTicketStatus;
-                if (t.idStaffAssignedTo > 0)
-                    history.dtAssigned = DateTime.Now;
-                else
-                    history.dtAssigned = null;
+                history.dtChanged = DateTime.Now;
                 history.idStaffAssigns = staff.idStaff;
 
                 _context.TicketHistories.Add(history);
@@ -78,10 +86,7 @@ namespace CRM.Repository
                 history.idStaffAssigned = t.idStaffAssignedTo;
                 history.idTicket = t.idTicket;
                 history.idTicketStatus = t.idTicketStatus;
-                if (t.idStaffAssignedTo > 0)
-                    history.dtAssigned = DateTime.Now;
-                else
-                    history.dtAssigned = null;
+                history.dtChanged = DateTime.Now;
                 history.idStaffAssigns = s.idStaff;
                 _context.TicketHistories.Add(history);
                 await _context.SaveChangesAsync();

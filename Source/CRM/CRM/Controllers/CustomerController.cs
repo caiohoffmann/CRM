@@ -19,11 +19,14 @@ namespace CRM.Controllers
         private readonly CRMContext _context;
         private readonly ICustomerBusiness customerBusiness;
         private readonly IAddressBusiness addressBusiness;
+        private readonly ICountryBusiness countryBusiness;
 
-        public CustomerController(CRMContext context, ICustomerBusiness customerBusiness, IAddressBusiness addressBusiness)
+
+        public CustomerController(CRMContext context, ICustomerBusiness customerBusiness, IAddressBusiness addressBusiness, ICountryBusiness countryBusiness)
         {
             this.customerBusiness = customerBusiness;
             this.addressBusiness = addressBusiness;
+            this.countryBusiness = countryBusiness;
             _context = context;
         }
 
@@ -52,7 +55,7 @@ namespace CRM.Controllers
                 return NotFound();
             }
 
-            var customer = await customerBusiness.getCustomerById(id.Value);
+            var customer = await customerBusiness.getCustomerByIdWithTickets(id.Value);
             if (customer == null)
             {
                 return NotFound();
@@ -65,6 +68,7 @@ namespace CRM.Controllers
         public async Task<IActionResult> Create()
         {
             ViewData["idAddress"] = SelectListHelper.SelectListAddresses(await addressBusiness.GetAddresses());
+            ViewData["idCountry"] = SelectListHelper.SelectListCountries(await countryBusiness.GetCountries());
             return View();
         }
 
@@ -73,7 +77,7 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idCustomer,nmCustomer,nuPhone,adEmail,nuCustomer,idAddress")] Customer customer)
+        public async Task<IActionResult> Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -97,6 +101,7 @@ namespace CRM.Controllers
                 return NotFound();
             }
             ViewData["idAddress"] = SelectListHelper.SelectListAddresses(await addressBusiness.GetAddresses());
+            ViewData["idCountry"] = SelectListHelper.SelectListCountries(await countryBusiness.GetCountries());//Correction 1
             return View(customer);
         }
 
@@ -105,7 +110,7 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idCustomer,nmCustomer,nuPhone,adEmail,nuCustomer,idAddress")] Customer customer)
+        public async Task<IActionResult> Edit(int id, Customer customer)
         {
             if (id != customer.idCustomer)
             {

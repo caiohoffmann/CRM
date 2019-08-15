@@ -57,8 +57,7 @@ namespace CRM.Repository
         {
             using (_context = CRMContextFactory.getContext())
             {
-                var TicketStatuses = await _context.TicketStatuses.FirstOrDefaultAsync(TicketStatus => TicketStatus.idTicketStatus == t.idTicketStatus);
-                TicketStatuses = t;
+                var TicketStatuses = _context.TicketStatuses.Update(t);
                 await _context.SaveChangesAsync();
                 return t;
             }

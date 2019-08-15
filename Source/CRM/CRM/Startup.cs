@@ -27,7 +27,7 @@ namespace CRM
                 options => options.UseMySql("Server=localhost;Database=crm;User=crm-sys;Password=test1234;",
                     mySqlOptions =>
                     {
-                        mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql); 
+                        mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql);
                     }
             ));
 
@@ -37,8 +37,10 @@ namespace CRM
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-           
+
+
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<CRMContext>();
 
             services.AddScoped<IAddressBusiness, AddressBusiness>();
@@ -82,6 +84,11 @@ namespace CRM
                 options.SlidingExpiration = true;
             });
 
+
+            services.AddAuthorization(options=> {
+                options.AddPolicy("AdminRoles", policy => policy.RequireRole("Admin","Employee"));
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,6 +106,7 @@ namespace CRM
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
             app.UseStaticFiles();
+
         }
     }
 }

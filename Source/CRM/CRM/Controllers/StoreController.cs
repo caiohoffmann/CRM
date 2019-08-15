@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CRM.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class StoreController : Controller
     {
         private readonly CRMContext _context;
@@ -44,7 +44,7 @@ namespace CRM.Controllers
             }
 
 
-            var store = storeBusiness.getStoreById(id.Value);
+            var store = await storeBusiness.getStoreById(id.Value);
             if (store == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idStore,nmStore,idCountry,idAddress")] Store store)
+        public async Task<IActionResult> Create( Store store)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idStore,nmStore,idCountry,idAddress")] Store store)
+        public async Task<IActionResult> Edit(int id, Store store)
         {
             if (id != store.idStore)
             {

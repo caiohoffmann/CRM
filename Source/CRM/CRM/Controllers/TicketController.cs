@@ -48,7 +48,7 @@ namespace CRM.Controllers
             {
                 return NotFound();
             }
-            Ticket ticket = await ticketBusiness.getTicketById(id.Value);
+            Ticket ticket = await ticketBusiness.GetTicketByIdWithHistory(id.Value);
             if (ticket == null)
             {
                 return NotFound();
@@ -84,13 +84,15 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("idTicket,deTicket,dtOpening,dtClosing,dtDue,idStaffAssignedTo,idTicketStatus,idCustomer")] Ticket ticket)
+        public async Task<IActionResult> Create( Ticket ticket)
         {
             if (ModelState.IsValid)
             {
                 Staff staff = await getCurrentStaff();
                 await ticketBusiness.saveTicket(ticket, staff);
-                return RedirectToAction(nameof(Index));
+                ViewData["error"] = new Error() { description = "Ticket created" };
+                IList<Ticket> tickets = await ticketBusiness.GetTickets(); 
+                return View(nameof(Index),tickets);
             }
             await DisplayStaffAndTicketStatus();
             return View(ticket);
@@ -128,7 +130,7 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("idTicket,deTicket,dtOpening,dtClosing,dtDue,idStaffAssignedTo,idTicketStatus,idCustomer")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id,  Ticket ticket)
         {
             if (id != ticket.idTicket)
             {

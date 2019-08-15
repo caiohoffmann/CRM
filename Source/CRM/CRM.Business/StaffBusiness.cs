@@ -34,12 +34,12 @@ namespace CRM.Business
 
         public Task<Staff> getStaffById(int id)
         {
-            return staffRepository.Get(s => s.idStaff == id);
+            return staffRepository.Get(s => s.idStaff == id, "Address.Country,Store");
         }
 
         public Task<IList<Staff>> getAllStaff()
         {
-            return staffRepository.GetList(s => true);
+            return staffRepository.GetList(s => true, "Address.Country,Store");
         }
 
         public async Task saveStaff(Staff staff)
@@ -50,6 +50,8 @@ namespace CRM.Business
 
         public async Task updateStaff(Staff staff)
         {
+            Staff s = await getStaffById(staff.idStaff);
+            staff.adEmail = s.adEmail;
             await staffRepository.Update(staff);
         }
 

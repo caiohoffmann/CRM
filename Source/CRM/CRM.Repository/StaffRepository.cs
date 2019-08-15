@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CRM.Repository
 {
-    public class StaffRepository : IRepository<Staff>
+    public class StaffRepository : RepositoryBase, IRepository<Staff>
     {
         private CRMContext _context;
         public async Task Delete(Staff t)
@@ -26,7 +26,12 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.Staffs.Include(includeProperties).FirstOrDefaultAsync(predicate);
+                {
+                    var staffs = _context.Staffs.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        staffs = staffs.Include(inc);
+                    return await staffs.FirstOrDefaultAsync(predicate);
+                }
                 else
                     return await _context.Staffs.Include(s => s.Address).FirstOrDefaultAsync(predicate);
             }
@@ -37,7 +42,13 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.Staffs.Include(includeProperties).Where(predicate).ToListAsync();
+                {
+                    var staffs = _context.Staffs.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        staffs = staffs.Include(inc);
+
+                    return await staffs.Where(predicate).ToListAsync();
+                }
                 else
                     return await _context.Staffs.Include(s => s.Address).Where(predicate).ToListAsync();
             }
@@ -57,8 +68,7 @@ namespace CRM.Repository
         {
             using (_context = CRMContextFactory.getContext())
             {
-                var Staffs = await _context.Staffs.FirstOrDefaultAsync(Staff => Staff.idStaff == t.idStaff);
-                Staffs = t;
+                var Staffs = _context.Staffs.Update(t);
                 await _context.SaveChangesAsync();
                 return t;
             }

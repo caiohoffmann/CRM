@@ -60,8 +60,7 @@ namespace CRM.Repository
         {
             using (_context = CRMContextFactory.getContext())
             {
-                var address = await _context.Addresses.FirstOrDefaultAsync(addr => addr.idAddress == t.idAddress);
-                address = t;
+                var address = _context.Addresses.Update(t);
                 await _context.SaveChangesAsync();
                 return t;
             }

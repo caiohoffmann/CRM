@@ -68,7 +68,7 @@ using CRM.Areas.Identity;
             WriteLiteral("\r\n    <div class=\"row\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-4\">\r\n                ");
             EndContext();
             BeginContext(203, 239, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "162c6a42cb544422be5d5d65f9433564", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e00da9bacb7a40bdaba8a807ed2adb3c", async() => {
                 BeginContext(229, 206, true);
                 WriteLiteral("\r\n                    <p>\r\n                        Title: <input type=\"text\" name=\"queryString\" />\r\n                        <input type=\"submit\" value=\"Filter\" />\r\n                    </p>\r\n                ");
                 EndContext();
@@ -92,7 +92,7 @@ using CRM.Areas.Identity;
             WriteLiteral("\r\n            </div>\r\n            <div class=\"col-md-2\"></div>\r\n            <div class=\"col-md-4\">\r\n                ");
             EndContext();
             BeginContext(558, 68, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0f8f435d000941f194ea85797ebdfe69", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c0dcafe35ff64b38b524e0c470766837", async() => {
                 BeginContext(605, 17, true);
                 WriteLiteral("Create New Ticket");
                 EndContext();
@@ -225,7 +225,7 @@ using CRM.Areas.Identity;
             WriteLiteral("\r\n                        </td>\r\n                        <td>\r\n                            ");
             EndContext();
             BeginContext(2291, 67, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "df97d775af1c4cfd9b4872e272fdbc74", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4c18ff6d242a429c89d01ef8a98d8f24", async() => {
                 BeginContext(2347, 7, true);
                 WriteLiteral("Details");
                 EndContext();

@@ -46,62 +46,7 @@
         <partial name="/Views/Address/Details.cshtml" for="Address" />
     </dl>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => ticket.deTicket)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => ticket.dtOpening)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => ticket.dtClosing)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => ticket.dtDue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => ticket.staffAssignedTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => ticket.ticketStatus)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.tickets)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.deTicket)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dtOpening)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dtClosing)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dtDue)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.staffAssignedTo.adEmail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ticketStatus.deTicketStatus)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.idTicket">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.idTicket">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.idTicket">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<partial name="/Views/Ticket/_List.cshtml" for="tickets" />
 <div>
     <a asp-action="Edit" asp-route-id="@Model.idCustomer">Edit</a> |
     <a asp-action="Index">Back to List</a>

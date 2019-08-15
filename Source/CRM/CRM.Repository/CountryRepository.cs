@@ -57,8 +57,7 @@ namespace CRM.Repository
         {
             using (_context = CRMContextFactory.getContext())
             {
-                var countries = await _context.Countries.FirstOrDefaultAsync(country => country.idCountry == t.idCountry);
-                countries = t;
+                var countries = _context.Countries.Update(t);
                 await _context.SaveChangesAsync();
                 return t;
             }

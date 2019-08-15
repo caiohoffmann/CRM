@@ -26,7 +26,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="adEmail" class="control-label"></label>
-                <input asp-for="adEmail" class="form-control" />
+                <p>@Model.adEmail</p>
+                <input type="hidden" asp-for="adEmail" />
                 <span asp-validation-for="adEmail" class="text-danger"></span>
             </div>
             <div class="form-group">

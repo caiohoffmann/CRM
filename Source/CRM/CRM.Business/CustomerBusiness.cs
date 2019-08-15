@@ -18,7 +18,10 @@ namespace CRM.Business
         Task updateCustomer(Customer customer);
         Task DeleteByCustomer(Customer customer);
         Task<bool> CustomerExists(int id);
+        Task<Customer> getCustomerByIdWithTickets(int id);
     }
+
+    
     public class CustomerBusiness : ICustomerBusiness
     {
         private  IRepository<Customer> customerRepository;
@@ -42,12 +45,14 @@ namespace CRM.Business
         {
             if (isNumber(filter))
             {
-                return await customerRepository.GetList(c => c.nuCustomer == int.Parse(filter));
+                return await customerRepository.GetList(c => 
+                                                            c.nuCustomer == int.Parse(filter) ||
+                                                            c.nuPhone.Contains(filter), "Address.Country");
             }
             return await customerRepository.GetList(c=>
-                                                        c.adEmail.Contains(filter) &&
-                                                        c.nmCustomer.Contains(filter) &&
-                                                        c.nuPhone.Contains(filter));
+                                                        c.adEmail.Contains(filter) ||
+                                                        c.nmCustomer.Contains(filter) ||
+                                                        c.nuPhone.Contains(filter), "Address.Country");
         }
 
         private bool isNumber(string filter)
@@ -65,31 +70,51 @@ namespace CRM.Business
 
         public async Task<IList<Customer>> getAllCustomer()
         {
-            return await customerRepository.GetList(c => true);
+            return await customerRepository.GetList(c => true, "Address.Country");
         }
 
         public async Task<Customer> getCustomerById(int id)
         {
-            return await customerRepository.Get(c => c.idCustomer == id);
+            return await customerRepository.Get(c => c.idCustomer == id, "Address.Country");
+        }
+
+        public async Task<Customer> getCustomerByIdWithTickets(int id)
+        {
+            var cust = await customerRepository.Get(c => c.idCustomer == id, "Address.Country,tickets.ticketStatus,tickets.staffAssignedTo");
+            
+            return cust;
         }
 
         public async Task<IList<Customer>> getCustomersByEmail(string email)
         {
-            return await customerRepository.GetList(cust => cust.adEmail.Contains(email));
+            return await customerRepository.GetList(cust => cust.adEmail.Contains(email), "Address.Country");
         }
 
         public async Task<IList<Customer>> getCustomersByName(string name)
         {
-            return await customerRepository.GetList(c=>c.nmCustomer == name);
+            return await customerRepository.GetList(c=>c.nmCustomer == name, "Address.Country");
         }
 
         public async Task saveCustomer(Customer customer)
         {
+            int number = generateNumber();
+            while (await customerRepository.Get(cus => cus.nuCustomer == number) != null)
+            {
+                number = generateNumber();
+            }
+            customer.nuCustomer = number;
             await customerRepository.Save(customer);
+        }
+        private int generateNumber()
+        {
+            int number = new Random().Next(10000);
+            return number;
         }
 
         public async Task updateCustomer(Customer customer)
         {
+            var cust = await getCustomerById(customer.idCustomer);
+            customer.nuCustomer = cust.nuCustomer;
             await customerRepository.Update(customer);
         }
     }
