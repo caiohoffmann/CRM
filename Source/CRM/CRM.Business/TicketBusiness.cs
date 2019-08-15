@@ -25,13 +25,15 @@ namespace CRM.Business
     public class TicketBusiness : ITicketBusiness
     {
 
-        TicketRepository ticketRepository;
-        IRepository<TicketHistory> historyRepository;
+        private TicketRepository ticketRepository;
+        private IRepository<TicketHistory> historyRepository;
+        private ICustomerBusiness customerBusiness;
 
         public TicketBusiness()
         {
             this.ticketRepository = new TicketRepository();
             this.historyRepository = new TicketHistoryRepository();
+            this.customerBusiness = new CustomerBusiness();
         }
         public async Task DeleteByTicket(Ticket ticket)
         {
@@ -61,6 +63,10 @@ namespace CRM.Business
             ticket.dtClosing = null;
             ticket.dtDue = DateTime.Now.AddDays(3);
             ticket.idTicketStatus = (int)TicketStatusEnum.OPEN;
+            if(ticket.idCustomer == 0)
+            {
+                ticket.Customer = await customerBusiness.getNumberCustomer(ticket.Customer);
+            }
             ticket = await ticketRepository.Save(ticket,staff);
             
         }

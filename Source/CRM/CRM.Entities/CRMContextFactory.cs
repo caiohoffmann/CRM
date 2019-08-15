@@ -10,7 +10,7 @@ namespace CRM.Entities
         public static CRMContext getContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<CRMContext>();
-            optionsBuilder.UseMySql("Server=localhost;Database=crm;User=crm-sys;Password=test1234;");
+            optionsBuilder.UseMySql("Server=crm-presentation.mysql.database.azure.com;Database=crm;User=crmsys@crm-presentation;Password=Test1234$;");
             return new CRMContext(optionsBuilder.Options);                 
         }
     }

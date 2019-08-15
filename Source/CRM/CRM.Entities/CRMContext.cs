@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CRM.Entities
@@ -27,6 +28,13 @@ namespace CRM.Entities
             modelBuilder.Entity<Staff>().HasIndex(k => k.adEmail).IsUnique(); // Condition : one unique email adderss
             modelBuilder.Entity<Customer>().HasIndex(k => k.adEmail).IsUnique();
             modelBuilder.Entity<Customer>().HasIndex(k => k.nuCustomer).IsUnique();
+            //var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+            //                                .SelectMany(t => t.GetForeignKeys())
+            //                                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            //foreach (var fk in cascadeFKs)
+            //    fk.DeleteBehavior = DeleteBehavior.Restrict;
+
             base.OnModelCreating(modelBuilder);
         }
     }

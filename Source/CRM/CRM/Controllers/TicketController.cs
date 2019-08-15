@@ -23,14 +23,18 @@ namespace CRM.Controllers
         private readonly IStaffBusiness staffBusiness;
         private readonly ITicketStatusBusiness ticketStatusBusiness;
         private readonly ICustomerBusiness customerBusiness;
+        private readonly ICountryBusiness countryBusiness;
 
-        public TicketController(CRMContext context, IStaffBusiness staffBusiness, ITicketBusiness ticketBusiness, ITicketStatusBusiness ticketStatusBusiness, ICustomerBusiness customerBusiness)
+        public TicketController(CRMContext context, IStaffBusiness staffBusiness,
+            ITicketBusiness ticketBusiness, ITicketStatusBusiness ticketStatusBusiness, ICustomerBusiness customerBusiness,
+            ICountryBusiness countryBusiness)
         {
             this.ticketStatusBusiness = ticketStatusBusiness;
             this.ticketBusiness = ticketBusiness;
             this.staffBusiness = staffBusiness;
             this.staffBusiness = staffBusiness;
             this.customerBusiness = customerBusiness;
+            this.countryBusiness = countryBusiness;
             _context = context;
         }
 
@@ -60,13 +64,14 @@ namespace CRM.Controllers
         // GET: Ticket/Create
         public async Task<IActionResult> Create(int? id)
         {
-            if(id != null)
+            await DisplayStaffAndTicketStatus();
+            if (id != null)
             {
                 Ticket ticket = new Ticket();
                 ticket.idCustomer = id.Value;
                 return View(ticket);
             }
-            await DisplayStaffAndTicketStatus();
+
             return View(new Ticket());
         }
 
@@ -77,6 +82,7 @@ namespace CRM.Controllers
             ViewData["idStaffAssignedTo"] = SelectListHelper.SelectListStaffs(staffs);
             ViewData["idCustomers"] = SelectListHelper.SelectListCutomers(await customerBusiness.getAllCustomer());
             ViewData["idTicketStatus"] = SelectListHelper.SelectListTicketStatuses(ticketStatuses);
+            ViewData["idCountry"] = SelectListHelper.SelectListCountries(await countryBusiness.GetCountries());
         }
 
         // POST: Ticket/Create
@@ -84,15 +90,15 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Ticket ticket)
+        public async Task<IActionResult> Create(Ticket ticket)
         {
             if (ModelState.IsValid)
             {
                 Staff staff = await getCurrentStaff();
                 await ticketBusiness.saveTicket(ticket, staff);
                 ViewData["error"] = new Error() { description = "Ticket created" };
-                IList<Ticket> tickets = await ticketBusiness.GetTickets(); 
-                return View(nameof(Index),tickets);
+                IList<Ticket> tickets = await ticketBusiness.GetTickets();
+                return View(nameof(Index), tickets);
             }
             await DisplayStaffAndTicketStatus();
             return View(ticket);
@@ -119,7 +125,7 @@ namespace CRM.Controllers
             if (ticket.idTicketStatus == (int)TicketStatusEnum.COMPLETED)
             {
                 ViewData["error"] = new Error { description = "Ticket already completed" };
-                return View(nameof(Details),ticket);
+                return View(nameof(Details), ticket);
             }
             await DisplayStaffAndTicketStatus();
             return View(ticket);
@@ -130,7 +136,7 @@ namespace CRM.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,  Ticket ticket)
+        public async Task<IActionResult> Edit(int id, Ticket ticket)
         {
             if (id != ticket.idTicket)
             {
@@ -169,7 +175,7 @@ namespace CRM.Controllers
                 return NotFound();
             }
 
-            var ticket = await ticketBusiness.getTicketById(id.Value);            
+            var ticket = await ticketBusiness.getTicketById(id.Value);
             if (ticket == null)
             {
                 return NotFound();

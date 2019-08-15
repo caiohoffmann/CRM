@@ -24,7 +24,7 @@ namespace CRM
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Latest);
             services.AddDbContext<Entities.CRMContext>
                 ( // replace "YourDbContext" with the class name of your DbContext
-                options => options.UseMySql("Server=localhost;Database=crm;User=crm-sys;Password=test1234;",
+                options => options.UseMySql("Server=crm-presentation.mysql.database.azure.com;Database=crm;User=crmsys@crm-presentation;Password=Test1234$;",
                     mySqlOptions =>
                     {
                         mySqlOptions.ServerVersion(new Version(8, 0, 17), ServerType.MySql);

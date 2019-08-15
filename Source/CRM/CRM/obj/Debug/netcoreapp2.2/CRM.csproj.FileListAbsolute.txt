@@ -75,3 +75,4 @@ C:\Users\ishiva\Desktop\CRM\Source\CRM\CRM\obj\Debug\netcoreapp2.2\CRM.Views.pdb
 C:\Users\ishiva\Desktop\CRM\Source\CRM\CRM\obj\Debug\netcoreapp2.2\CRM.csproj.CopyComplete
 C:\Users\ishiva\Desktop\CRM\Source\CRM\CRM\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_GraphPartial.g.cshtml.cs
 C:\Users\ishiva\Desktop\CRM\Source\CRM\CRM\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_GraphPartial2.g.cshtml.cs
+C:\Users\ishiva\Desktop\CRM\Source\CRM\CRM\obj\Debug\netcoreapp2.2\Razor\Views\Customer\_Create.g.cshtml.cs

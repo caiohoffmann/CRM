@@ -19,19 +19,23 @@ namespace CRM
         {
             var host = CreateWebHostBuilder(args).Build();
 
-            //using (var scope = host.Services.CreateScope())
-            //{
-            //    var services = scope.ServiceProvider;
-            //    var roleManager = services.GetService<RoleManager<IdentityRole>>();
-            //    if (!roleManager.RoleExistsAsync("Admin").ConfigureAwait(true).GetAwaiter().GetResult())
-            //    {
-            //        roleManager.CreateAsync(new IdentityRole("Admin")).ConfigureAwait(true).GetAwaiter().GetResult();
-            //    }
-            //    if (!roleManager.RoleExistsAsync("Employee").ConfigureAwait(true).GetAwaiter().GetResult())
-            //    {
-            //        roleManager.CreateAsync(new IdentityRole("Employee")).ConfigureAwait(true).GetAwaiter().GetResult();
-            //    }
-            //}
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var roleManager = services.GetService<RoleManager<IdentityRole>>();
+                if (!roleManager.RoleExistsAsync("Admin").ConfigureAwait(true).GetAwaiter().GetResult())
+                {
+                    roleManager.CreateAsync(new IdentityRole("Admin")).ConfigureAwait(true).GetAwaiter().GetResult();
+                }
+                if (!roleManager.RoleExistsAsync("Employee").ConfigureAwait(true).GetAwaiter().GetResult())
+                {
+                    roleManager.CreateAsync(new IdentityRole("Employee")).ConfigureAwait(true).GetAwaiter().GetResult();
+                }
+                var userManager = services.GetService<UserManager<IdentityUser>>();
+                var user = userManager.FindByEmailAsync("test@crm.com").ConfigureAwait(true).GetAwaiter().GetResult();
+                userManager.AddToRoleAsync(user,"Admin").ConfigureAwait(true).GetAwaiter().GetResult();
+                //userManager.CreateAsync(new IdentityUser() { Email = "test@crm.com", UserName = "test@crm.com", TwoFactorEnabled = false, EmailConfirmed = true, LockoutEnabled = false, PhoneNumberConfirmed = false},"Test1234$").ConfigureAwait(true).GetAwaiter().GetResult();
+            }
             
             //using (var context = CRMContextFactory.getContext())
             //{
