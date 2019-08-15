@@ -17101,7 +17101,7 @@ th.footable-sortable > span.fooicon {
   float: right; }
 
 .footable .checkbox input[type="checkbox"] {
-  opacity: 1; }
+  opacity:0; }
 
 .footable .footable-first-visible span::before {
   display: none; }
@@ -18750,8 +18750,6 @@ label {
     border-color: transparent; }
   .checkbox + .checkbox {
     padding-top: 0; }
-  .checkbox input[type="checkbox"] {
-    opacity: 0; }
     .checkbox input[type="checkbox"]:disabled + label {
       cursor: not-allowed; }
     .checkbox input[type="checkbox"]:disabled + .label-text {
@@ -19369,11 +19367,7 @@ label {
     -webkit-transform: translateY(-50%) translateX(-50%) scale(1);
             transform: translateY(-50%) translateX(-50%) scale(1); }
 
-.checkbox input[type=checkbox],
-.checkbox-inline input[type=checkbox],
-.radio input[type=radio],
-.radio-inline input[type=radio] {
-  position: absolute; }
+
 
 .form-input-icon {
   position: relative; }

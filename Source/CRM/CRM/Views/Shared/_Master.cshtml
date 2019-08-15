@@ -1,5 +1,7 @@
 ﻿@inject UserManager<IdentityUser> UserManager
 @inject SignInManager<IdentityUser> SignInManager
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +19,8 @@
     <link href="/vendors/mono-social-icons/monosocialiconsfont.css" rel="stylesheet" type="text/css">
     <link href="/vendors/feather-icons/feather.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.7.0/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css" />
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- Head Libs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
@@ -59,7 +63,7 @@
                 {
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="Identity"
-                           asp-page="/Account/Register"
+                           asp-page="/Account/Login"
                            title="Manage">Sign In</a>
                     </li>
                 }
@@ -80,13 +84,10 @@
                             </header>
                             <ul class="list-unstyled card-body">
                                 <li>
-                                    <a href="page-blank.html#"><span><span class="align-middle">Manage Accounts</span></span></a>
+                                    <a asp-area="Identity" asp-page="/Account/ForgotPassword"><span><span class="align-middle">Forgot Password</span></span></a>
                                 </li>
                                 <li>
-                                    <a href="page-blank.html#"><span><span class="align-middle">Change Password</span></span></a>
-                                </li>
-                                <li>
-                                    <a href="page-blank.html#"><span><span class="align-middle">Check Inbox</span></span></a>
+                                    <a asp-area="Identity" asp-page="/Account/ResetPassword"><span><span class="align-middle">Reset Password</span></span></a>
                                 </li>
                                 <li>
                                     <a asp-page="/Account/Logout" asp-area="Identity"><span><span class="align-middle">Sign Out</span></span></a>
@@ -124,27 +125,36 @@
                 </div>
                 <!-- /.side-user -->
                 <!-- Call to Action -->
-                <div class="side-content mr-t-30 mr-lr-15">
-                    <a class="btn btn-block btn-success ripple fw-600" href="/Customer/Search"><i class="fa fa-plus-square-o mr-1 mr-0-rtl ml-1-rtl"></i> New Ticket</a>
-                </div>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div class="side-content mr-t-30 mr-lr-15">
+                        <a class="btn btn-primary" href="/Customer/Search"> New Ticket</a>
+                    </div>
+                }
                 <!-- Sidebar Menu -->
                 <nav class="sidebar-nav">
                     <ul class="nav in side-menu">
-                        <li class="current-page">
-                            @Html.ActionLink("Dashboard", "Index", "Home")
-                        </li>
-                        <li class="current-page">
-                            @Html.ActionLink("Customer List", "Index", "Customer")
-                        </li>
-                        <li class="current-page">
-                            @Html.ActionLink("Store List", "Index", "Store")
-                        </li>
-                        <li class="current-page">
-                            @Html.ActionLink("Staff List", "Index", "Staff")
-                        </li>
-                        <li class="current-page">
-                            @Html.ActionLink("Ticket List", "Index", "Ticket")
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="current-page">
+                                @Html.ActionLink("Dashboard", "Index", "Home")
+                            </li>
+                            <li class="current-page">
+                                @Html.ActionLink("Customer List", "Index", "Customer")
+                            </li>
+                            @if (this.User.IsInRole("Admin"))
+                            {
+                                <li class="current-page">
+                                    @Html.ActionLink("Store List", "Index", "Store")
+                                </li>
+                                <li class="current-page">
+                                    @Html.ActionLink("Staff List", "Index", "Staff")
+                                </li>
+                            }
+                            <li class="current-page">
+                                @Html.ActionLink("Ticket List", "Index", "Ticket")
+                            </li>
+                        }
                         @*<li class="current-page menu-item-has-children">
                                 <a href="index.html"><i class="list-icon feather feather-command"></i> <span class="hide-menu">Dashboard</span></a>
                                 <ul class="list-unstyled sub-menu">
@@ -189,6 +199,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/2.7.0/metisMenu.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.7.0/js/perfect-scrollbar.jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="/js/theme.js"></script>
     <script src="/js/custom.js"></script>
     <partial name="_ErrorMessage" />

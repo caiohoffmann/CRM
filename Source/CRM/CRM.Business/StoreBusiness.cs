@@ -32,12 +32,12 @@ namespace CRM.Business
 
         public async Task<IList<Store>> getAllStores()
         {
-            return await storeRepository.GetList(s => true);
+            return await storeRepository.GetList(s => true, "Address.Country,Country");
         }
 
         public async Task<Store> getStoreById(int id)
         {
-            return await storeRepository.Get(s=>s.idStore == id);
+            return await storeRepository.Get(s=>s.idStore == id, "Address.Country,Country");
         }
 
         public async Task saveStore(Store store)

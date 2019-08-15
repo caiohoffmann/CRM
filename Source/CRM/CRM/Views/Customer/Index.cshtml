@@ -47,12 +47,11 @@
                 @Html.DisplayFor(modelItem => item.nuCustomer)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address.nuAddress)
+                @Html.DisplayFor(modelItem => item.Address.street)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.idCustomer">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.idCustomer">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.idCustomer">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.idCustomer">Details</a> 
             </td>
         </tr>
 }

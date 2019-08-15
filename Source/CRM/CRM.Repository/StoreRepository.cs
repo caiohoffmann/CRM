@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CRM.Repository
 {
-    public class StoreRepository : IRepository<Store>
+    public class StoreRepository : RepositoryBase, IRepository<Store>
     {
         private CRMContext _context;
         public async Task Delete(Store t)
@@ -27,8 +27,10 @@ namespace CRM.Repository
             {
                 if (includeProperties != null)
                 {
-
-                    return await _context.Stores.Include(s => s.Address).Include(s => s.Country).FirstOrDefaultAsync(predicate);
+                    var stores = _context.Stores.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        stores = stores.Include(inc);
+                    return await stores.FirstOrDefaultAsync(predicate);
                 }
                 else
                     return await _context.Stores.Include(s => s.Address).FirstOrDefaultAsync(predicate);
@@ -40,7 +42,13 @@ namespace CRM.Repository
             using (_context = CRMContextFactory.getContext())
             {
                 if (includeProperties != null)
-                    return await _context.Stores.Where(predicate).Include(includeProperties).ToListAsync();
+                {
+                    var stores = _context.Stores.AsQueryable();
+                    foreach (string inc in getProperties(includeProperties))
+                        stores = stores.Include(inc);
+                    return await stores.ToListAsync();
+                }
+                
                 else
                     return await _context.Stores.Include(s => s.Address).Where(predicate).ToListAsync();
 
@@ -61,8 +69,7 @@ namespace CRM.Repository
         {
             using (_context = CRMContextFactory.getContext())
             {
-                var Stores = await _context.Stores.FirstOrDefaultAsync(Store => Store.idStore == t.idStore);
-                Stores = t;
+                var Stores = _context.Stores.Update(t);
                 await _context.SaveChangesAsync();
                 return t;
             }

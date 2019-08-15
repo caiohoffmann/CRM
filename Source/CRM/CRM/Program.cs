@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using CRM.Entities;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace CRM
@@ -15,6 +17,22 @@ namespace CRM
     {
         public static void Main(string[] args)
         {
+            var host = CreateWebHostBuilder(args).Build();
+
+            //using (var scope = host.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    var roleManager = services.GetService<RoleManager<IdentityRole>>();
+            //    if (!roleManager.RoleExistsAsync("Admin").ConfigureAwait(true).GetAwaiter().GetResult())
+            //    {
+            //        roleManager.CreateAsync(new IdentityRole("Admin")).ConfigureAwait(true).GetAwaiter().GetResult();
+            //    }
+            //    if (!roleManager.RoleExistsAsync("Employee").ConfigureAwait(true).GetAwaiter().GetResult())
+            //    {
+            //        roleManager.CreateAsync(new IdentityRole("Employee")).ConfigureAwait(true).GetAwaiter().GetResult();
+            //    }
+            //}
+            
             //using (var context = CRMContextFactory.getContext())
             //{
             //    context.Users.Add(new Microsoft.AspNetCore.Identity.IdentityUser()
@@ -34,9 +52,9 @@ namespace CRM
             //    }
             //    catch { }
             //}
-            CreateWebHostBuilder(args).Build().Run();
+            host.Run();
 
-            
+
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

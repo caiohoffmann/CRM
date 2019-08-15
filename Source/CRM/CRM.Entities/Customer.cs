@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CRM.Entities
 {
-    public class Customer
+    public class Customer 
     {
         [Key]
         public int idCustomer { get; set; }

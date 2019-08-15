@@ -4,66 +4,68 @@
     Layout = "~/Views/Shared/_Master.cshtml";
 }
 
-    <div class="row">
-        <div class="row">
-            <div class="col-md-4">
-                <form asp-action="Search">
-                    <p>
-                        Title: <input type="text" name="queryString" />
-                        <input type="submit" value="Filter" />
-                    </p>
-                </form>
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
-                <a asp-action="Create" asp-controller="Ticket">Create New Ticket</a>
-            </div>
+<div class="row clearfix">
+    <div class="row" style="min-width:100%;">
+        <div class="col-md-4">
+            <form asp-action="Search">
+
+                Title: <input type="text" name="queryString" class="form-control" style="min-width:135px;" />
+                <button class="btn btn-primary" type="submit" style="margin-top:15px;">Search</button>
+
+            </form>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.nmCustomer)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.nuPhone)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.adEmail)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.nuCustomer)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Address)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nmCustomer)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nuPhone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.adEmail)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nuCustomer)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Address.nuAddress)
-                        </td>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.idCustomer">Details</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <button class="btn btn-primary" asp-action="Create" asp-controller="Ticket"s style="margin-top:15px;">
+                Create New Ticket
+                </button>
+        </div>
     </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.nmCustomer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nuPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.adEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nuCustomer)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nmCustomer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nuPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.adEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nuCustomer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address.nuAddress)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.idCustomer">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

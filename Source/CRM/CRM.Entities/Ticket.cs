@@ -34,9 +34,11 @@ namespace CRM.Entities
         [ForeignKey("idTicketStatus")]
         [Display(Name = "Status")]
         public TicketStatus ticketStatus { get; set; }
+        [Display(Name ="Customer")]
         public int idCustomer { get; set; }
         [Display(Name ="Customer")]
         [ForeignKey("idCustomer")]
         public Customer Customer { get; set; }
+        public List<TicketHistory> TicketHistory { get; set; }
     }
 }
